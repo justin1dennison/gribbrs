@@ -1,4 +1,4 @@
-use crate::sections::{Header, Identification};
+use crate::sections::{ Header, Identification};
 use std::io::{Read, Seek};
 
 #[derive(Debug, PartialEq)]
