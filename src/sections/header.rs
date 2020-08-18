@@ -3,7 +3,6 @@ use crate::tables::ProductType;
 use byteorder::{BigEndian, ReadBytesExt};
 use std::io::{Read, Seek};
 
-
 #[derive(Debug, PartialEq)]
 pub struct Header {
     pub magic: String,

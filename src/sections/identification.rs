@@ -1,7 +1,6 @@
 use byteorder::{BigEndian, ReadBytesExt};
 use std::io::{Read, Seek};
 
-
 #[derive(Debug, PartialEq)]
 pub struct Identification {
     length: u32,
