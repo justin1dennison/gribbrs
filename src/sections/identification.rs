@@ -1,11 +1,12 @@
 use byteorder::{BigEndian, ReadBytesExt};
 use std::io::{Read, Seek};
+use crate::tables::OriginatingCenter;
 
 #[derive(Debug, PartialEq)]
 pub struct Identification {
     length: u32,
     number_of_section: u8,
-    center: u16,
+    center: OriginatingCenter,
     subcenter: u16,
     master_table_version: u8,
     local_table_version: u8,
@@ -31,6 +32,7 @@ impl<R: Read + Seek> From<R> for Identification {
             .expect("Cannot read number of section of Identification");
         let center = rdr
             .read_u16::<BigEndian>()
+            .map(OriginatingCenter::from)
             .expect("Cannot read number of center of Identification");
         let subcenter = rdr
             .read_u16::<BigEndian>()

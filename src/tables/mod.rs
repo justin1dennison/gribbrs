@@ -1,4 +1,5 @@
+mod originating_center;
+mod product_type;
 
-mod product_types;
-
-pub use product_types::*;
+pub use originating_center::*;
+pub use product_type::*;
