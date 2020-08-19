@@ -1,4 +1,4 @@
-use crate::tables::SourceOfGridDefinition;
+use crate::tables::{InterpretationOfNumbersAtEndOfSection3, SourceOfGridDefinition};
 use byteorder::{BigEndian, ReadBytesExt};
 use serde::{Deserialize, Serialize};
 use std::io::{Read, Seek};
@@ -10,7 +10,7 @@ pub struct GridDefinition {
     pub source: SourceOfGridDefinition,
     pub number_of_data_points: u32,
     pub number_of_optional_numbers: u8,
-    pub interpretation: u8,
+    pub interpretation_of_numbers_at_end_of_section_3: InterpretationOfNumbersAtEndOfSection3,
     pub template_no: u16,
 }
 
@@ -32,8 +32,9 @@ impl<R: Read + Seek> From<R> for GridDefinition {
         let number_of_optional_numbers = r
             .read_u8()
             .expect("Could not read number of optional numbers for GridDefinition");
-        let interpretation = r
+        let interpretation_of_numbers_at_end_of_section_3 = r
             .read_u8()
+            .map(InterpretationOfNumbersAtEndOfSection3::from)
             .expect("Could not read interpretation for GridDefinition");
         let template_no = r
             .read_u16::<BigEndian>()
@@ -44,7 +45,7 @@ impl<R: Read + Seek> From<R> for GridDefinition {
             source,
             number_of_data_points,
             number_of_optional_numbers,
-            interpretation,
+            interpretation_of_numbers_at_end_of_section_3,
             template_no,
         }
     }
