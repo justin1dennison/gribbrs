@@ -1,5 +1,6 @@
-#[derive(Debug, PartialEq)]
+use serde::{Deserialize, Serialize};
 
+#[derive(Debug, PartialEq, Serialize, Deserialize)]
 pub enum OriginatingCenter {
     Melbourne,
     Moscow,

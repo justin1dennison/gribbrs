@@ -1,8 +1,9 @@
 use crate::tables::{GribMasterTableVersion, OriginatingCenter, OriginatingSubcenter};
 use byteorder::{BigEndian, ReadBytesExt};
+use serde::{Deserialize, Serialize};
 use std::io::{Read, Seek};
 
-#[derive(Debug, PartialEq)]
+#[derive(Debug, PartialEq, Serialize, Deserialize)]
 pub struct Identification {
     length: u32,
     number_of_section: u8,

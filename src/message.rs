@@ -1,7 +1,8 @@
 use crate::sections::{Header, Identification};
+use serde::{Deserialize, Serialize};
 use std::io::{Read, Seek};
 
-#[derive(Debug, PartialEq)]
+#[derive(Debug, PartialEq, Serialize, Deserialize)]
 pub struct Message {
     pub header: Header,
     pub identification: Identification,

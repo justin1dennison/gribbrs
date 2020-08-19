@@ -1,9 +1,10 @@
 use crate::constants::GribVersion;
 use crate::tables::ProductType;
 use byteorder::{BigEndian, ReadBytesExt};
+use serde::{Deserialize, Serialize};
 use std::io::{Read, Seek};
 
-#[derive(Debug, PartialEq)]
+#[derive(Debug, PartialEq, Serialize, Deserialize)]
 pub struct Header {
     pub magic: String,
     pub version: GribVersion,

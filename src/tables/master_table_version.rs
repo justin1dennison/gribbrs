@@ -1,4 +1,5 @@
-#[derive(Debug, PartialEq)]
+use serde::{Deserialize, Serialize};
+#[derive(Debug, PartialEq, Serialize, Deserialize)]
 pub enum GribMasterTableVersion {
     Experimental,
     VersionImplementedOn { day: u8, month: String, year: u16 },
