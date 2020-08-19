@@ -1,5 +1,4 @@
 use gribbrs::message::Message;
-use serde_json;
 use std::io::Cursor;
 
 fn main() -> Result<(), Box<dyn std::error::Error>> {
@@ -7,7 +6,7 @@ fn main() -> Result<(), Box<dyn std::error::Error>> {
     let reader = Cursor::new(sample.to_vec());
     let message = Message::new(reader)?;
     println!("{:#?}", message);
-    let json = serde_json::to_string_pretty(&message)?;
+    let json = message.json()?;
     println!("As json: \n{}", json);
     Ok(())
 }

@@ -1,4 +1,4 @@
-use crate::tables::{GribMasterTableVersion, OriginatingCenter, OriginatingSubcenter};
+use crate::tables::{GribLocalTable, GribMasterTableVersion, OriginatingCenter, OriginatingSubcenter};
 use byteorder::{BigEndian, ReadBytesExt};
 use serde::{Deserialize, Serialize};
 use std::io::{Read, Seek};
@@ -10,7 +10,7 @@ pub struct Identification {
     center: OriginatingCenter,
     subcenter: OriginatingSubcenter,
     master_table_version: GribMasterTableVersion,
-    local_table_version: u8,
+    local_table_version: GribLocalTable,
     significance_of_reference_time: u8,
     year: u16,
     month: u8,
@@ -45,6 +45,7 @@ impl<R: Read + Seek> From<R> for Identification {
             .expect("Cannot read number master table version of Identification");
         let local_table_version = rdr
             .read_u8()
+            .map(GribLocalTable::from)
             .expect("Cannot read local table version of Identification");
         let significance_of_reference_time = rdr
             .read_u8()

@@ -1,6 +1,7 @@
 use crate::sections::{Header, Identification};
 use serde::{Deserialize, Serialize};
 use std::io::{Read, Seek};
+use serde_json;
 
 #[derive(Debug, PartialEq, Serialize, Deserialize)]
 pub struct Message {
@@ -16,5 +17,8 @@ impl Message {
             header,
             identification,
         })
+    }
+    pub fn json(self) -> Result<String, serde_json::error::Error> {
+        serde_json::to_string(&self)
     }
 }
