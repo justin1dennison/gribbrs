@@ -12,6 +12,7 @@ pub struct GridDefinition {
     pub number_of_optional_numbers: u8,
     pub interpretation_of_numbers_at_end_of_section_3: InterpretationOfNumbersAtEndOfSection3,
     pub template_no: u16,
+    pub reserved: Vec<u8>,
 }
 
 impl<R: Read + Seek> From<R> for GridDefinition {
@@ -39,6 +40,15 @@ impl<R: Read + Seek> From<R> for GridDefinition {
         let template_no = r
             .read_u16::<BigEndian>()
             .expect("Could not read template number for GridDefinition");
+        let reserved = {
+            let mut xs = Vec::new();
+            let capacity = (length - 14) as usize;
+            for _ in 0..capacity {
+                let byte = r.read_u8().unwrap();
+                xs.push(byte);
+            }
+            xs
+        };
         GridDefinition {
             length,
             number_of_section,
@@ -47,6 +57,7 @@ impl<R: Read + Seek> From<R> for GridDefinition {
             number_of_optional_numbers,
             interpretation_of_numbers_at_end_of_section_3,
             template_no,
+            reserved,
         }
     }
 }
