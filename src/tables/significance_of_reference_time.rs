@@ -14,13 +14,13 @@ pub enum SignificanceOfReferenceTime {
 impl From<u8> for SignificanceOfReferenceTime {
     fn from(n: u8) -> Self {
         match n {
-            0 => SignificanceOfReferenceTime::Analysis,
-            1 => SignificanceOfReferenceTime::StartOfForecast,
-            2 => SignificanceOfReferenceTime::VerifyingTimeOfForecast,
-            3 => SignificanceOfReferenceTime::ObservationTime,
-            4..=191 => SignificanceOfReferenceTime::Reserved,
-            192..=254 => SignificanceOfReferenceTime::ReservedForLocalUse,
-            255 => SignificanceOfReferenceTime::Missing,
+            0 => Self::Analysis,
+            1 => Self::StartOfForecast,
+            2 => Self::VerifyingTimeOfForecast,
+            3 => Self::ObservationTime,
+            4..=191 => Self::Reserved,
+            192..=254 => Self::ReservedForLocalUse,
+            255 => Self::Missing,
         }
     }
 }

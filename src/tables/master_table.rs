@@ -11,130 +11,130 @@ pub enum GribMasterTable {
 impl From<u8> for GribMasterTable {
     fn from(n: u8) -> Self {
         match n {
-            0 => GribMasterTable::Experimental,
-            1 => GribMasterTable::VersionImplementedOn {
+            0 => Self::Experimental,
+            1 => Self::VersionImplementedOn {
                 day: 7,
                 month: "November".to_string(),
                 year: 2001,
             },
-            2 => GribMasterTable::VersionImplementedOn {
+            2 => Self::VersionImplementedOn {
                 day: 4,
                 month: "November".to_string(),
                 year: 2003,
             },
-            3 => GribMasterTable::VersionImplementedOn {
+            3 => Self::VersionImplementedOn {
                 day: 2,
                 month: "November".to_string(),
                 year: 2005,
             },
-            4 => GribMasterTable::VersionImplementedOn {
+            4 => Self::VersionImplementedOn {
                 day: 7,
                 month: "November".to_string(),
                 year: 2007,
             },
-            5 => GribMasterTable::VersionImplementedOn {
+            5 => Self::VersionImplementedOn {
                 day: 4,
                 month: "November".to_string(),
                 year: 2009,
             },
-            6 => GribMasterTable::VersionImplementedOn {
+            6 => Self::VersionImplementedOn {
                 day: 15,
                 month: "September".to_string(),
                 year: 2010,
             },
-            7 => GribMasterTable::VersionImplementedOn {
+            7 => Self::VersionImplementedOn {
                 day: 4,
                 month: "May".to_string(),
                 year: 2011,
             },
-            8 => GribMasterTable::VersionImplementedOn {
+            8 => Self::VersionImplementedOn {
                 day: 8,
                 month: "November".to_string(),
                 year: 2011,
             },
-            9 => GribMasterTable::VersionImplementedOn {
+            9 => Self::VersionImplementedOn {
                 day: 2,
                 month: "May".to_string(),
                 year: 2012,
             },
-            10 => GribMasterTable::VersionImplementedOn {
+            10 => Self::VersionImplementedOn {
                 day: 7,
                 month: "November".to_string(),
                 year: 2012,
             },
-            11 => GribMasterTable::VersionImplementedOn {
+            11 => Self::VersionImplementedOn {
                 day: 8,
                 month: "May".to_string(),
                 year: 2013,
             },
-            12 => GribMasterTable::VersionImplementedOn {
+            12 => Self::VersionImplementedOn {
                 day: 14,
                 month: "November".to_string(),
                 year: 2013,
             },
-            13 => GribMasterTable::VersionImplementedOn {
+            13 => Self::VersionImplementedOn {
                 day: 7,
                 month: "May".to_string(),
                 year: 2014,
             },
-            14 => GribMasterTable::VersionImplementedOn {
+            14 => Self::VersionImplementedOn {
                 day: 5,
                 month: "November".to_string(),
                 year: 2014,
             },
-            15 => GribMasterTable::VersionImplementedOn {
+            15 => Self::VersionImplementedOn {
                 day: 6,
                 month: "May".to_string(),
                 year: 2015,
             },
-            16 => GribMasterTable::VersionImplementedOn {
+            16 => Self::VersionImplementedOn {
                 day: 11,
                 month: "November".to_string(),
                 year: 2015,
             },
-            17 => GribMasterTable::VersionImplementedOn {
+            17 => Self::VersionImplementedOn {
                 day: 4,
                 month: "May".to_string(),
                 year: 2016,
             },
-            18 => GribMasterTable::VersionImplementedOn {
+            18 => Self::VersionImplementedOn {
                 day: 2,
                 month: "November".to_string(),
                 year: 2016,
             },
-            19 => GribMasterTable::VersionImplementedOn {
+            19 => Self::VersionImplementedOn {
                 day: 3,
                 month: "May".to_string(),
                 year: 2017,
             },
-            20 => GribMasterTable::VersionImplementedOn {
+            20 => Self::VersionImplementedOn {
                 day: 8,
                 month: "November".to_string(),
                 year: 2017,
             },
-            21 => GribMasterTable::VersionImplementedOn {
+            21 => Self::VersionImplementedOn {
                 day: 2,
                 month: "May".to_string(),
                 year: 2018,
             },
-            22 => GribMasterTable::VersionImplementedOn {
+            22 => Self::VersionImplementedOn {
                 day: 7,
                 month: "November".to_string(),
                 year: 2018,
             },
-            23 => GribMasterTable::VersionImplementedOn {
+            23 => Self::VersionImplementedOn {
                 day: 15,
                 month: "May".to_string(),
                 year: 2019,
             },
-            24 => GribMasterTable::VersionImplementedOn {
+            24 => Self::VersionImplementedOn {
                 day: 06,
                 month: "November".to_string(),
                 year: 2019,
             },
-            25 => GribMasterTable::PreOperationalToBeImplementedByNextAmendment,
-            26..=254 => GribMasterTable::FutureVersion,
-            255 => GribMasterTable::Missing,
+            25 => Self::PreOperationalToBeImplementedByNextAmendment,
+            26..=254 => Self::FutureVersion,
+            255 => Self::Missing,
         }
     }
 }

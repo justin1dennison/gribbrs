@@ -10,9 +10,9 @@ pub enum GribLocalTable {
 impl From<u8> for GribLocalTable {
     fn from(n: u8) -> Self {
         match n {
-            0 => GribLocalTable::Unused,
-            1..=254 => GribLocalTable::Version(n),
-            _ => GribLocalTable::Missing,
+            0 => Self::Unused,
+            1..=254 => Self::Version(n),
+            _ => Self::Missing,
         }
     }
 }

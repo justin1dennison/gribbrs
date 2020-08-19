@@ -12,11 +12,11 @@ pub enum SourceOfGridDefinition {
 impl From<u8> for SourceOfGridDefinition {
     fn from(n: u8) -> Self {
         match n {
-            0 => SourceOfGridDefinition::SpecifiedInCodeTable31,
-            1 => SourceOfGridDefinition::PredeterminedGridDefinitionDefinedByOriginatingCenter,
-            2..=191 => SourceOfGridDefinition::Reserved,
-            192..=254 => SourceOfGridDefinition::ReservedForLocalUse,
-            255 => SourceOfGridDefinition::AGridDefinitionDoesNotApplyToThisProduct,
+            0 => Self::SpecifiedInCodeTable31,
+            1 => Self::PredeterminedGridDefinitionDefinedByOriginatingCenter,
+            2..=191 => Self::Reserved,
+            192..=254 => Self::ReservedForLocalUse,
+            255 => Self::AGridDefinitionDoesNotApplyToThisProduct,
         }
     }
 }

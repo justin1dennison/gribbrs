@@ -20,19 +20,19 @@ pub enum ProductionStatusOfData {
 impl From<u8> for ProductionStatusOfData {
     fn from(n: u8) -> Self {
         match n {
-            0 => ProductionStatusOfData::OperationalProducts,
-            1 => ProductionStatusOfData::OperationalTestProducts,
-            2 => ProductionStatusOfData::ResearchProducts,
-            3 => ProductionStatusOfData::ReanalysisProducts,
-            4 => ProductionStatusOfData::TIGGE,
-            5 => ProductionStatusOfData::TIGGETest,
-            6 => ProductionStatusOfData::S2SOperationalProducts,
-            7 => ProductionStatusOfData::S2STestProducts,
-            8 => ProductionStatusOfData::UERRA,
-            9 => ProductionStatusOfData::UERRATest,
-            10..=191 => ProductionStatusOfData::Reserved,
-            192..=254 => ProductionStatusOfData::ReservedforLocalUse,
-            255 => ProductionStatusOfData::Missing,
+            0 => Self::OperationalProducts,
+            1 => Self::OperationalTestProducts,
+            2 => Self::ResearchProducts,
+            3 => Self::ReanalysisProducts,
+            4 => Self::TIGGE,
+            5 => Self::TIGGETest,
+            6 => Self::S2SOperationalProducts,
+            7 => Self::S2STestProducts,
+            8 => Self::UERRA,
+            9 => Self::UERRATest,
+            10..=191 => Self::Reserved,
+            192..=254 => Self::ReservedforLocalUse,
+            255 => Self::Missing,
         }
     }
 }
