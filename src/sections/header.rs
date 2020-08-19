@@ -14,18 +14,18 @@ pub struct Header {
 }
 
 impl<R: Read + Seek> From<R> for Header {
-    fn from(mut rdr: R) -> Self {
+    fn from(mut r: R) -> Self {
         let mut magic = [0u8; 4];
-        rdr.read_exact(&mut magic)
+        r.read_exact(&mut magic)
             .expect("Couldn't read magic number of header");
-        let reserved = rdr
+        let reserved = r
             .read_u16::<BigEndian>()
             .expect("Couldn't read the reserved portion of the header");
         let product_type: ProductType =
-            ProductType::from(rdr.read_u8().expect("Couldn't read the product type"));
+            ProductType::from(r.read_u8().expect("Couldn't read the product type"));
         let version: GribVersion =
-            GribVersion::from(rdr.read_u8().expect("Couldn't read the edition version"));
-        let total_length = rdr
+            GribVersion::from(r.read_u8().expect("Couldn't read the edition version"));
+        let total_length = r
             .read_u64::<BigEndian>()
             .expect("Could not determine the total length of the message");
         Header {

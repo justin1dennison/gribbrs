@@ -27,46 +27,46 @@ pub struct Identification {
 }
 
 impl<R: Read + Seek> From<R> for Identification {
-    fn from(mut rdr: R) -> Self {
-        let length = rdr
+    fn from(mut r: R) -> Self {
+        let length = r
             .read_u32::<BigEndian>()
             .expect("Cannot read length of Identification section");
-        let number_of_section = rdr
+        let number_of_section = r
             .read_u8()
             .expect("Cannot read number of section of Identification");
-        let center = rdr
+        let center = r
             .read_u16::<BigEndian>()
             .map(OriginatingCenter::from)
             .expect("Cannot read number of center of Identification");
-        let subcenter = rdr
+        let subcenter = r
             .read_u16::<BigEndian>()
             .map(OriginatingSubcenter::from)
             .expect("Cannot read number of subcenter of Identification");
-        let master_table = rdr
+        let master_table = r
             .read_u8()
             .map(GribMasterTable::from)
             .expect("Cannot read number master table version of Identification");
-        let local_table = rdr
+        let local_table = r
             .read_u8()
             .map(GribLocalTable::from)
             .expect("Cannot read local table version of Identification");
-        let significance_of_reference_time = rdr
+        let significance_of_reference_time = r
             .read_u8()
             .map(SignificanceOfReferenceTime::from)
             .expect("Cannot read significance of reference time of Identification");
-        let year = rdr
+        let year = r
             .read_u16::<BigEndian>()
             .expect("Cannot read year of Identification");
-        let month = rdr.read_u8().expect("Cannot read month of Identification");
-        let day = rdr.read_u8().expect("Cannot read day of Identification");
-        let hour = rdr.read_u8().expect("Cannot read hour of Identification");
-        let minute = rdr.read_u8().expect("Cannot read minute of Identification");
-        let second = rdr.read_u8().expect("Cannot read second of Identification");
-        let production_status_of_processed_data = rdr
+        let month = r.read_u8().expect("Cannot read month of Identification");
+        let day = r.read_u8().expect("Cannot read day of Identification");
+        let hour = r.read_u8().expect("Cannot read hour of Identification");
+        let minute = r.read_u8().expect("Cannot read minute of Identification");
+        let second = r.read_u8().expect("Cannot read second of Identification");
+        let production_status_of_processed_data = r
             .read_u8()
             .map(ProductionStatusOfData::from)
             .expect("Cannot read production status of processed data of Identification");
-        let type_of_processed_data = rdr
+        let type_of_processed_data = r
             .read_u8()
             .map(TypeOfData::from)
             .expect("Cannot read type of processed data of Identification");
@@ -75,7 +75,7 @@ impl<R: Read + Seek> From<R> for Identification {
         } else {
             let capacity = (length - 21) as usize;
             let mut xs = Vec::with_capacity(capacity);
-            rdr.read(&mut xs)
+            r.read(&mut xs)
                 .expect("Cannot read reserved section of Identification");
             Some(xs)
         };

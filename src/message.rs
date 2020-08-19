@@ -1,5 +1,5 @@
 use crate::constants::MessageReferenceDate;
-use crate::sections::{Header, Identification};
+use crate::sections::{Header, Identification, LocalUse};
 use chrono::prelude::*;
 use serde::{Deserialize, Serialize};
 use serde_json;
@@ -7,20 +7,26 @@ use std::io::{Read, Seek};
 
 type JsonResult = Result<String, serde_json::error::Error>;
 pub trait ToJson {
-  fn json(&self) -> JsonResult where Self: Sized + Serialize {
-     serde_json::to_string(&self)
-  }
-  fn pretty_json(&self) -> JsonResult where Self: Sized + Serialize{
-     serde_json::to_string_pretty(&self)
-  } 
+    fn json(&self) -> JsonResult
+    where
+        Self: Sized + Serialize,
+    {
+        serde_json::to_string(&self)
+    }
+    fn pretty_json(&self) -> JsonResult
+    where
+        Self: Sized + Serialize,
+    {
+        serde_json::to_string_pretty(&self)
+    }
 }
 
 #[derive(Debug, PartialEq, Serialize, Deserialize)]
 pub struct Message {
     pub header: Header,
     pub identification: Identification,
+    pub local_use: LocalUse,
 }
-
 
 impl ToJson for Message {}
 
@@ -28,9 +34,11 @@ impl Message {
     pub fn new<R: Read + Seek>(mut r: R) -> Result<Self, Box<dyn std::error::Error>> {
         let header = Header::from(&mut r);
         let identification = Identification::from(&mut r);
+        let local_use = LocalUse::from(&mut r);
         Ok(Message {
             header,
             identification,
+            local_use,
         })
     }
 
@@ -53,4 +61,3 @@ impl Message {
         MessageReferenceDate(*significance_of_reference_time, d)
     }
 }
-
