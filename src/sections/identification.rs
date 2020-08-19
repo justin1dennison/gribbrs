@@ -1,5 +1,4 @@
-use crate::tables::OriginatingCenter;
-use crate::tables::OriginatingSubcenter;
+use crate::tables::{GribMasterTableVersion, OriginatingCenter, OriginatingSubcenter};
 use byteorder::{BigEndian, ReadBytesExt};
 use std::io::{Read, Seek};
 
@@ -9,7 +8,7 @@ pub struct Identification {
     number_of_section: u8,
     center: OriginatingCenter,
     subcenter: OriginatingSubcenter,
-    master_table_version: u8,
+    master_table_version: GribMasterTableVersion,
     local_table_version: u8,
     significance_of_reference_time: u8,
     year: u16,
@@ -41,6 +40,7 @@ impl<R: Read + Seek> From<R> for Identification {
             .expect("Cannot read number of subcenter of Identification");
         let master_table_version = rdr
             .read_u8()
+            .map(GribMasterTableVersion::from)
             .expect("Cannot read number master table version of Identification");
         let local_table_version = rdr
             .read_u8()
