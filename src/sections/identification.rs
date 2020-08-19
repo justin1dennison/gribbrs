@@ -1,6 +1,6 @@
 use crate::tables::{
     GribLocalTable, GribMasterTable, OriginatingCenter, OriginatingSubcenter,
-    SignificanceOfReferenceTime,
+    ProductionStatusOfData, SignificanceOfReferenceTime, TypeOfData,
 };
 use byteorder::{BigEndian, ReadBytesExt};
 use serde::{Deserialize, Serialize};
@@ -21,8 +21,8 @@ pub struct Identification {
     pub hour: u8,
     pub minute: u8,
     pub second: u8,
-    pub production_status_of_processed_data: u8,
-    pub type_of_processed_data: u8,
+    pub production_status_of_processed_data: ProductionStatusOfData,
+    pub type_of_processed_data: TypeOfData,
     pub reserved: Option<Vec<u8>>,
 }
 
@@ -64,9 +64,11 @@ impl<R: Read + Seek> From<R> for Identification {
         let second = rdr.read_u8().expect("Cannot read second of Identification");
         let production_status_of_processed_data = rdr
             .read_u8()
+            .map(ProductionStatusOfData::from)
             .expect("Cannot read production status of processed data of Identification");
         let type_of_processed_data = rdr
             .read_u8()
+            .map(TypeOfData::from)
             .expect("Cannot read type of processed data of Identification");
         let reserved = if length == 21 {
             None
