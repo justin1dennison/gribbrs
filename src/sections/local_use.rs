@@ -17,10 +17,18 @@ impl<R: Read + Seek> From<R> for LocalUse {
         let number_of_section = r
             .read_u8()
             .expect("Could not read the number of section for LocalUse");
-        let capacity = (length - 5) as usize;
-        let mut local_use = Vec::with_capacity(capacity);
-        r.read(&mut local_use)
-            .expect("Could not read the local use data of LocalUse section");
+
+        let local_use = {
+            let capacity = (length - 5) as usize;
+            let mut xs = Vec::new();
+            for _ in 0..capacity {
+                let octet = r
+                    .read_u8()
+                    .expect("Could not read an octet of LocalUse local_use");
+                xs.push(octet);
+            }
+            xs
+        };
         LocalUse {
             length,
             number_of_section,

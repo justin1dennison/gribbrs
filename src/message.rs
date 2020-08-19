@@ -1,5 +1,5 @@
 use crate::constants::MessageReferenceDate;
-use crate::sections::{Header, Identification, LocalUse};
+use crate::sections::{GridDefinition, Header, Identification, LocalUse};
 use chrono::prelude::*;
 use serde::{Deserialize, Serialize};
 use serde_json;
@@ -26,6 +26,7 @@ pub struct Message {
     pub header: Header,
     pub identification: Identification,
     pub local_use: LocalUse,
+    pub grid_definition: GridDefinition,
 }
 
 impl ToJson for Message {}
@@ -35,10 +36,12 @@ impl Message {
         let header = Header::from(&mut r);
         let identification = Identification::from(&mut r);
         let local_use = LocalUse::from(&mut r);
+        let grid_definition = GridDefinition::from(&mut r);
         Ok(Message {
             header,
             identification,
             local_use,
+            grid_definition,
         })
     }
 
