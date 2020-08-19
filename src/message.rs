@@ -5,11 +5,24 @@ use serde::{Deserialize, Serialize};
 use serde_json;
 use std::io::{Read, Seek};
 
+type JsonResult = Result<String, serde_json::error::Error>;
+pub trait ToJson {
+  fn json(&self) -> JsonResult where Self: Sized + Serialize {
+     serde_json::to_string(&self)
+  }
+  fn pretty_json(&self) -> JsonResult where Self: Sized + Serialize{
+     serde_json::to_string_pretty(&self)
+  } 
+}
+
 #[derive(Debug, PartialEq, Serialize, Deserialize)]
 pub struct Message {
     pub header: Header,
     pub identification: Identification,
 }
+
+
+impl ToJson for Message {}
 
 impl Message {
     pub fn new<R: Read + Seek>(mut r: R) -> Result<Self, Box<dyn std::error::Error>> {
@@ -19,9 +32,6 @@ impl Message {
             header,
             identification,
         })
-    }
-    pub fn json(&self) -> Result<String, serde_json::error::Error> {
-        serde_json::to_string(&self)
     }
 
     pub fn reference_date(&self) -> MessageReferenceDate {
@@ -43,3 +53,4 @@ impl Message {
         MessageReferenceDate(*significance_of_reference_time, d)
     }
 }
+
