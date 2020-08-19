@@ -1,4 +1,7 @@
+use crate::tables::SignificanceOfReferenceTime;
+use chrono::{DateTime, Utc};
 use serde::{Deserialize, Serialize};
+
 #[derive(Debug, PartialEq, Serialize, Deserialize)]
 pub enum GribVersion {
     One,
@@ -15,3 +18,6 @@ impl From<u8> for GribVersion {
         }
     }
 }
+
+#[derive(Debug, PartialEq, Serialize, Deserialize)]
+pub struct MessageReferenceDate(pub SignificanceOfReferenceTime, pub DateTime<Utc>);

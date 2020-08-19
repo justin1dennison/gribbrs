@@ -8,22 +8,22 @@ use std::io::{Read, Seek};
 
 #[derive(Debug, PartialEq, Serialize, Deserialize)]
 pub struct Identification {
-    length: u32,
-    number_of_section: u8,
-    center: OriginatingCenter,
-    subcenter: OriginatingSubcenter,
-    master_table: GribMasterTable,
-    local_table: GribLocalTable,
-    significance_of_reference_time: SignificanceOfReferenceTime,
-    year: u16,
-    month: u8,
-    day: u8,
-    hour: u8,
-    minute: u8,
-    second: u8,
-    production_status_of_processed_data: u8,
-    type_of_processed_data: u8,
-    reserved: Option<Vec<u8>>,
+    pub length: u32,
+    pub number_of_section: u8,
+    pub center: OriginatingCenter,
+    pub subcenter: OriginatingSubcenter,
+    pub master_table: GribMasterTable,
+    pub local_table: GribLocalTable,
+    pub significance_of_reference_time: SignificanceOfReferenceTime,
+    pub year: u16,
+    pub month: u8,
+    pub day: u8,
+    pub hour: u8,
+    pub minute: u8,
+    pub second: u8,
+    pub production_status_of_processed_data: u8,
+    pub type_of_processed_data: u8,
+    pub reserved: Option<Vec<u8>>,
 }
 
 impl<R: Read + Seek> From<R> for Identification {
