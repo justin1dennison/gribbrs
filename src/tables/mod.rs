@@ -5,6 +5,7 @@ mod originating_subcenter;
 mod product_type;
 mod production_status_of_data;
 mod significance_of_reference_time;
+mod source_of_grid_definition;
 mod type_of_data;
 
 pub use local_table::*;
@@ -14,4 +15,5 @@ pub use originating_subcenter::*;
 pub use product_type::*;
 pub use production_status_of_data::*;
 pub use significance_of_reference_time::*;
+pub use source_of_grid_definition::*;
 pub use type_of_data::*;

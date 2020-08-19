@@ -1,3 +1,4 @@
+use crate::tables::SourceOfGridDefinition;
 use byteorder::{BigEndian, ReadBytesExt};
 use serde::{Deserialize, Serialize};
 use std::io::{Read, Seek};
@@ -6,7 +7,7 @@ use std::io::{Read, Seek};
 pub struct GridDefinition {
     pub length: u32,
     pub number_of_section: u8,
-    pub source: u8,
+    pub source: SourceOfGridDefinition,
     pub number_of_data_points: u32,
     pub number_of_optional_numbers: u8,
     pub interpretation: u8,
@@ -23,6 +24,7 @@ impl<R: Read + Seek> From<R> for GridDefinition {
             .expect("Could not read the number of section for GridDefinition");
         let source = r
             .read_u8()
+            .map(SourceOfGridDefinition::from)
             .expect("Could not read the section for GridDefinition");
         let number_of_data_points = r
             .read_u32::<BigEndian>()
