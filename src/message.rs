@@ -1,7 +1,7 @@
 use crate::sections::{Header, Identification};
 use serde::{Deserialize, Serialize};
-use std::io::{Read, Seek};
 use serde_json;
+use std::io::{Read, Seek};
 
 #[derive(Debug, PartialEq, Serialize, Deserialize)]
 pub struct Message {

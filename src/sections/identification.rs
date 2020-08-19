@@ -1,4 +1,7 @@
-use crate::tables::{GribLocalTable, GribMasterTable, OriginatingCenter, OriginatingSubcenter};
+use crate::tables::{
+    GribLocalTable, GribMasterTable, OriginatingCenter, OriginatingSubcenter,
+    SignificanceOfReferenceTime,
+};
 use byteorder::{BigEndian, ReadBytesExt};
 use serde::{Deserialize, Serialize};
 use std::io::{Read, Seek};
@@ -11,7 +14,7 @@ pub struct Identification {
     subcenter: OriginatingSubcenter,
     master_table: GribMasterTable,
     local_table: GribLocalTable,
-    significance_of_reference_time: u8,
+    significance_of_reference_time: SignificanceOfReferenceTime,
     year: u16,
     month: u8,
     day: u8,
@@ -39,7 +42,7 @@ impl<R: Read + Seek> From<R> for Identification {
             .read_u16::<BigEndian>()
             .map(OriginatingSubcenter::from)
             .expect("Cannot read number of subcenter of Identification");
-        let master_table= rdr
+        let master_table = rdr
             .read_u8()
             .map(GribMasterTable::from)
             .expect("Cannot read number master table version of Identification");
@@ -49,6 +52,7 @@ impl<R: Read + Seek> From<R> for Identification {
             .expect("Cannot read local table version of Identification");
         let significance_of_reference_time = rdr
             .read_u8()
+            .map(SignificanceOfReferenceTime::from)
             .expect("Cannot read significance of reference time of Identification");
         let year = rdr
             .read_u16::<BigEndian>()
