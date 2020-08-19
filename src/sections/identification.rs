@@ -1,4 +1,4 @@
-use crate::tables::{GribLocalTable, GribMasterTableVersion, OriginatingCenter, OriginatingSubcenter};
+use crate::tables::{GribLocalTable, GribMasterTable, OriginatingCenter, OriginatingSubcenter};
 use byteorder::{BigEndian, ReadBytesExt};
 use serde::{Deserialize, Serialize};
 use std::io::{Read, Seek};
@@ -9,8 +9,8 @@ pub struct Identification {
     number_of_section: u8,
     center: OriginatingCenter,
     subcenter: OriginatingSubcenter,
-    master_table_version: GribMasterTableVersion,
-    local_table_version: GribLocalTable,
+    master_table: GribMasterTable,
+    local_table: GribLocalTable,
     significance_of_reference_time: u8,
     year: u16,
     month: u8,
@@ -39,11 +39,11 @@ impl<R: Read + Seek> From<R> for Identification {
             .read_u16::<BigEndian>()
             .map(OriginatingSubcenter::from)
             .expect("Cannot read number of subcenter of Identification");
-        let master_table_version = rdr
+        let master_table= rdr
             .read_u8()
-            .map(GribMasterTableVersion::from)
+            .map(GribMasterTable::from)
             .expect("Cannot read number master table version of Identification");
-        let local_table_version = rdr
+        let local_table = rdr
             .read_u8()
             .map(GribLocalTable::from)
             .expect("Cannot read local table version of Identification");
@@ -78,8 +78,8 @@ impl<R: Read + Seek> From<R> for Identification {
             number_of_section,
             center,
             subcenter,
-            master_table_version,
-            local_table_version,
+            master_table,
+            local_table,
             significance_of_reference_time,
             year,
             month,

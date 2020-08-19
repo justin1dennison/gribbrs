@@ -1,6 +1,6 @@
 use serde::{Deserialize, Serialize};
 #[derive(Debug, PartialEq, Serialize, Deserialize)]
-pub enum GribMasterTableVersion {
+pub enum GribMasterTable {
     Experimental,
     VersionImplementedOn { day: u8, month: String, year: u16 },
     PreOperationalToBeImplementedByNextAmendment,
@@ -8,133 +8,133 @@ pub enum GribMasterTableVersion {
     Missing,
 }
 
-impl From<u8> for GribMasterTableVersion {
+impl From<u8> for GribMasterTable {
     fn from(n: u8) -> Self {
         match n {
-            0 => GribMasterTableVersion::Experimental,
-            1 => GribMasterTableVersion::VersionImplementedOn {
+            0 => GribMasterTable::Experimental,
+            1 => GribMasterTable::VersionImplementedOn {
                 day: 7,
                 month: "November".to_string(),
                 year: 2001,
             },
-            2 => GribMasterTableVersion::VersionImplementedOn {
+            2 => GribMasterTable::VersionImplementedOn {
                 day: 4,
                 month: "November".to_string(),
                 year: 2003,
             },
-            3 => GribMasterTableVersion::VersionImplementedOn {
+            3 => GribMasterTable::VersionImplementedOn {
                 day: 2,
                 month: "November".to_string(),
                 year: 2005,
             },
-            4 => GribMasterTableVersion::VersionImplementedOn {
+            4 => GribMasterTable::VersionImplementedOn {
                 day: 7,
                 month: "November".to_string(),
                 year: 2007,
             },
-            5 => GribMasterTableVersion::VersionImplementedOn {
+            5 => GribMasterTable::VersionImplementedOn {
                 day: 4,
                 month: "November".to_string(),
                 year: 2009,
             },
-            6 => GribMasterTableVersion::VersionImplementedOn {
+            6 => GribMasterTable::VersionImplementedOn {
                 day: 15,
                 month: "September".to_string(),
                 year: 2010,
             },
-            7 => GribMasterTableVersion::VersionImplementedOn {
+            7 => GribMasterTable::VersionImplementedOn {
                 day: 4,
                 month: "May".to_string(),
                 year: 2011,
             },
-            8 => GribMasterTableVersion::VersionImplementedOn {
+            8 => GribMasterTable::VersionImplementedOn {
                 day: 8,
                 month: "November".to_string(),
                 year: 2011,
             },
-            9 => GribMasterTableVersion::VersionImplementedOn {
+            9 => GribMasterTable::VersionImplementedOn {
                 day: 2,
                 month: "May".to_string(),
                 year: 2012,
             },
-            10 => GribMasterTableVersion::VersionImplementedOn {
+            10 => GribMasterTable::VersionImplementedOn {
                 day: 7,
                 month: "November".to_string(),
                 year: 2012,
             },
-            11 => GribMasterTableVersion::VersionImplementedOn {
+            11 => GribMasterTable::VersionImplementedOn {
                 day: 8,
                 month: "May".to_string(),
                 year: 2013,
             },
-            12 => GribMasterTableVersion::VersionImplementedOn {
+            12 => GribMasterTable::VersionImplementedOn {
                 day: 14,
                 month: "November".to_string(),
                 year: 2013,
             },
-            13 => GribMasterTableVersion::VersionImplementedOn {
+            13 => GribMasterTable::VersionImplementedOn {
                 day: 7,
                 month: "May".to_string(),
                 year: 2014,
             },
-            14 => GribMasterTableVersion::VersionImplementedOn {
+            14 => GribMasterTable::VersionImplementedOn {
                 day: 5,
                 month: "November".to_string(),
                 year: 2014,
             },
-            15 => GribMasterTableVersion::VersionImplementedOn {
+            15 => GribMasterTable::VersionImplementedOn {
                 day: 6,
                 month: "May".to_string(),
                 year: 2015,
             },
-            16 => GribMasterTableVersion::VersionImplementedOn {
+            16 => GribMasterTable::VersionImplementedOn {
                 day: 11,
                 month: "November".to_string(),
                 year: 2015,
             },
-            17 => GribMasterTableVersion::VersionImplementedOn {
+            17 => GribMasterTable::VersionImplementedOn {
                 day: 4,
                 month: "May".to_string(),
                 year: 2016,
             },
-            18 => GribMasterTableVersion::VersionImplementedOn {
+            18 => GribMasterTable::VersionImplementedOn {
                 day: 2,
                 month: "November".to_string(),
                 year: 2016,
             },
-            19 => GribMasterTableVersion::VersionImplementedOn {
+            19 => GribMasterTable::VersionImplementedOn {
                 day: 3,
                 month: "May".to_string(),
                 year: 2017,
             },
-            20 => GribMasterTableVersion::VersionImplementedOn {
+            20 => GribMasterTable::VersionImplementedOn {
                 day: 8,
                 month: "November".to_string(),
                 year: 2017,
             },
-            21 => GribMasterTableVersion::VersionImplementedOn {
+            21 => GribMasterTable::VersionImplementedOn {
                 day: 2,
                 month: "May".to_string(),
                 year: 2018,
             },
-            22 => GribMasterTableVersion::VersionImplementedOn {
+            22 => GribMasterTable::VersionImplementedOn {
                 day: 7,
                 month: "November".to_string(),
                 year: 2018,
             },
-            23 => GribMasterTableVersion::VersionImplementedOn {
+            23 => GribMasterTable::VersionImplementedOn {
                 day: 15,
                 month: "May".to_string(),
                 year: 2019,
             },
-            24 => GribMasterTableVersion::VersionImplementedOn {
+            24 => GribMasterTable::VersionImplementedOn {
                 day: 06,
                 month: "November".to_string(),
                 year: 2019,
             },
-            25 => GribMasterTableVersion::PreOperationalToBeImplementedByNextAmendment,
-            26..=254 => GribMasterTableVersion::FutureVersion,
-            255 => GribMasterTableVersion::Missing,
+            25 => GribMasterTable::PreOperationalToBeImplementedByNextAmendment,
+            26..=254 => GribMasterTable::FutureVersion,
+            255 => GribMasterTable::Missing,
         }
     }
 }
