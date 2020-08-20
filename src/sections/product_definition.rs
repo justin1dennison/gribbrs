@@ -26,20 +26,20 @@ impl<R: Read + Seek> From<R> for ProductDefinition {
             .read_u16::<BigEndian>()
             .expect("Couldn't read product definition template number of Product Definition");
         let reserved = {
-          let mut xs = Vec::new();
-          let capacity = (length - 7) as usize;
-          for _ in 0..capacity {
-            let byte = r.read_u8().unwrap();
-            xs.push(byte);
-          }
-          xs
-        }; 
+            let mut xs = Vec::new();
+            let capacity = (length - 9) as usize;
+            for _ in 0..capacity {
+                let byte = r.read_u8().unwrap();
+                xs.push(byte);
+            }
+            xs
+        };
         ProductDefinition {
             length,
             number_of_section,
             number_of_coordinate_values_after_template,
             product_definition_template_number,
-            reserved
+            reserved,
         }
     }
 }

@@ -1,5 +1,7 @@
 use crate::constants::MessageReferenceDate;
-use crate::sections::{GridDefinition, Header, Identification, LocalUse, ProductDefinition};
+use crate::sections::{
+    DataRepresentation, GridDefinition, Header, Identification, LocalUse, ProductDefinition,
+};
 use chrono::prelude::*;
 use serde::{Deserialize, Serialize};
 use serde_json;
@@ -28,24 +30,27 @@ pub struct Message {
     pub local_use: LocalUse,
     pub grid_definition: GridDefinition,
     pub product_definition: ProductDefinition,
+    pub data_representation: DataRepresentation,
 }
 
 impl ToJson for Message {}
 
 impl Message {
-    pub fn new<R: Read + Seek>(mut r: R) -> Result<Self, Box<dyn std::error::Error>> {
+    pub fn new<R: Read + Seek>(mut r: R) -> Self {
         let header = Header::from(&mut r);
         let identification = Identification::from(&mut r);
         let local_use = LocalUse::from(&mut r);
         let grid_definition = GridDefinition::from(&mut r);
         let product_definition = ProductDefinition::from(&mut r);
-        Ok(Message {
+        let data_representation = DataRepresentation::from(&mut r);
+        Message {
             header,
             identification,
             local_use,
             grid_definition,
             product_definition,
-        })
+            data_representation,
+        }
     }
 
     pub fn reference_date(&self) -> MessageReferenceDate {

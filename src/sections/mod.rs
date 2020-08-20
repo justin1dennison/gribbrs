@@ -1,9 +1,11 @@
+mod data_representation;
 mod grid_definition;
 mod header;
 mod identification;
 mod local_use;
 mod product_definition;
 
+pub use data_representation::*;
 pub use grid_definition::*;
 pub use header::*;
 pub use identification::*;
