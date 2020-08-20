@@ -10,12 +10,14 @@ struct Grib {
 }
 
 use std::fs::File; 
+use std::io::BufReader;
 
 impl From<String> for Grib {
      fn from(path: String) -> Self {
         let mut messages: Vec<Message> = Vec::new();
         let file = File::open(path).expect("File not found");
-        let message = Message::new(file);
+        let reader = BufReader::new(file);
+        let message = Message::new(reader);
         messages.push(message);
         return Grib { messages } 
      }
