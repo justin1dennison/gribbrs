@@ -72,3 +72,16 @@ impl Message {
         MessageReferenceDate(*significance_of_reference_time, d)
     }
 }
+
+#[cfg(test)]
+mod test {
+    use crate::constants::GribVersion;
+    use super::Message;
+    use std::io::Cursor;
+    const SAMPLE_MESSAGE: &[u8] = include_bytes!("../sample-data/first-message.grib2");
+    #[test]
+    fn message_can_be_constructed() {
+        let message = Message::new(Cursor::new(SAMPLE_MESSAGE));
+        assert_eq!(message.header.version, GribVersion::Two)
+    }
+}

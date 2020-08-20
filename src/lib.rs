@@ -6,18 +6,28 @@ use message::Message;
 
 #[derive(Debug, PartialEq)]
 struct Grib {
-    message: Vec<Message>,
+    messages: Vec<Message>,
+}
+
+use std::fs::File; 
+
+impl From<String> for Grib {
+     fn from(path: String) -> Self {
+        let mut messages: Vec<Message> = Vec::new();
+        let file = File::open(path).expect("File not found");
+        let message = Message::new(file);
+        messages.push(message);
+        return Grib { messages } 
+     }
 }
 
 #[cfg(test)]
 mod tests {
-    use super::constants::GribVersion;
-    use super::message::Message;
-    use std::io::Cursor;
-    const SAMPLE_MESSAGE: &[u8] = include_bytes!("../sample-data/first-message.grib2");
+     use super::Grib; 
+
     #[test]
-    fn message_can_be_constructed() {
-        let message = Message::new(Cursor::new(SAMPLE_MESSAGE)).expect("cannot create a message");
-        assert_eq!(message.header.version, GribVersion::Two)
+    fn create_a_grib_file_from_a_path() {
+       let grib =  Grib::from(String::from("sample-data/first-message.grib2"));
+       assert_eq!(grib.messages.len(), 1);        
     }
 }
